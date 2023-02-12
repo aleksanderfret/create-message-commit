@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/aleksanderfret/create-message-commit/issues"
   },
-  "homepage": "https://github.com/aleksanderfret/create-message-commit#readme"
+  "homepage": "https://github.com/aleksanderfret/create-message-commit#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
+  }
 }
