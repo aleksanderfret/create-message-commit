@@ -1,0 +1,23 @@
+{
+  "name": "create-commit-message",
+  "version": "0.0.1",
+  "description": "Git branch name validator and commit message prefixer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aleksanderfret/create-message-commit.git"
+  },
+  "author": {
+    "name": "Aleksander Fret",
+    "email": "olekfret80@gmail.com",
+    "url": "https://github.com/aleksanderfret/"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aleksanderfret/create-message-commit/issues"
+  },
+  "homepage": "https://github.com/aleksanderfret/create-message-commit#readme"
+}
