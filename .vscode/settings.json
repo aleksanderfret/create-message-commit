@@ -1,0 +1,29 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.workingDirectories": [
+    {
+      "directory": "./scripts",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "./src",
+      "changeProcessCWD": true
+    }
+  ],
+  "eslint.trace.server": "off",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "js/ts.implicitProjectConfig.experimentalDecorators": true,
+  "cSpell.words": ["varchar"],
+  "prettier.arrowParens": "avoid",
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "none",
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
