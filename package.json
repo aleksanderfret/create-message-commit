@@ -1,5 +1,5 @@
 {
-  "name": "create-commit-message",
+  "name": "create-git-message",
   "version": "0.0.1",
   "description": "Git branch name validator and commit message prefixer",
   "main": "index.js",
@@ -21,7 +21,8 @@
     "test": "jest --no-cache --watchAll=false --passWithNoTests",
     "test:all": "CI=true jest --passWithNoTests",
     "test:watch": "jest --watch",
-    "version": "npm run format:fx && git add -A src"
+    "version": "npm run format:fx && git add -A src",
+    "a": "npx ts-node -T src/index.ts mycfg"
   },
   "types": "lib/index.d.ts",
   "files": [
@@ -29,7 +30,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/aleksanderfret/create-message-commit.git"
+    "url": "https://github.com/aleksanderfret/create-git-message.git"
   },
   "author": {
     "name": "Aleksander Fret",
@@ -38,9 +39,9 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aleksanderfret/create-message-commit/issues"
+    "url": "https://github.com/aleksanderfret/create-git-message/issues"
   },
-  "homepage": "https://github.com/aleksanderfret/create-message-commit#readme",
+  "homepage": "https://github.com/aleksanderfret/create-git-message#readme",
   "devDependencies": {
     "@types/jest": "^29.4.0",
     "@types/node": "^18.13.0",
@@ -56,6 +57,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.4",
     "ts-jest": "^29.0.5",
+    "ts-lib": "^0.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
@@ -66,6 +68,26 @@
     "*.{js,ts}": [
       "eslint -c .eslintrc --fix",
       "npm run test"
+    ]
+  },
+  "createCommitMessage": {
+    "branchSeparator": "/",
+    "skipBranches": [
+      "master",
+      "dev",
+      "staging",
+      "test"
+    ],
+    "ticketNumberMinLength": 1,
+    "ticketPrefix": "ccm",
+    "ticketSeparator": "-",
+    "changeType": [
+      "fix",
+      "feat",
+      "chore",
+      "docs",
+      "refactor",
+      "style"
     ]
   }
 }

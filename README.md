@@ -1,2 +1,3 @@
-# create-message-commit
+# create-git-message
+
 # create-message-commit
