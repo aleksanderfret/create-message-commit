@@ -1,4 +1,41 @@
-import { ChangeType, GitMesssageConfig, SkipBranches } from './types';
+export type ChangeType =
+  | 'build'
+  | 'fix'
+  | 'feat'
+  | 'chore'
+  | 'ci'
+  | 'docs'
+  | 'perf'
+  | 'refactor'
+  | 'style'
+  | 'test';
+
+export type SkipBranches =
+  | 'master'
+  | 'main'
+  | 'dev'
+  | 'develop'
+  | 'test'
+  | '(no branch)';
+
+export interface Config<T = ChangeType, K = SkipBranches> {
+  branchMaxLength: number;
+  branchMinLength: number;
+  branchNameChars: string;
+  branchNameFeedback: string;
+  branchNamePattern: string;
+  branchSeparator: string;
+  changeType: T[];
+  skipBranches: K[];
+  ticketNumberMaxLength: number;
+  ticketNumberMinLength: number;
+  ticketPrefix: string;
+  ticketSeparator: string;
+}
+
+export interface GitConventionalNames {
+  gitConventionalNames: Config;
+}
 
 export const configName = 'createCommitMessage';
 const ticketPrefix = 'ticket';
@@ -28,7 +65,7 @@ const pattern = `^(${skipBranches.join('|')}){1}$|^((${changeType.join(
   ticketNumberMaxLength ? '' : ticketNumberMaxLength
 }}!?${branchSeparator}${branchNameChars}{${branchMinLength},${branchMaxLength}})$`;
 
-export const defaultConfig: GitMesssageConfig = {
+export const defaultConfig: Config = {
   branchMaxLength,
   branchMinLength,
   branchNameChars,
