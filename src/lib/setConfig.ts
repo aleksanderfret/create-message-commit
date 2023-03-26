@@ -1,4 +1,4 @@
-import { Config, defaultConfig } from '../config/index.js';
+import { Config, defaultConfig } from './config.js';
 import { filterConfig } from './filterConfig.js';
 
 export const setConfig = (customConfig: Partial<Config> = {}) => {

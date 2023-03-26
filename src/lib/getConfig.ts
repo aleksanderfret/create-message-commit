@@ -1,4 +1,4 @@
-import { Config, GitConventionalNames } from '../config/index.js';
+import { Config, GitConventionalNames } from './config.js';
 import { readJSON } from './readJSON.js';
 import { setConfig } from './setConfig.js';
 

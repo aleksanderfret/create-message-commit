@@ -22,6 +22,9 @@
     "gcnames": "./dist/mjs/cli.js"
   },
   "scripts": {
+    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "build:esm": "tsc -p ./tsconfig.esm.json",
     "start": "npx ts-node -T scripts/clean.ts dist",
     "check": "npm-run-all lint format test:all compile clean",
     "clean": " npx ts-node -T scripts/clean.ts dist",
@@ -31,20 +34,15 @@
     "lint": "eslint . --ext \".js,.ts\"",
     "lint:fix": "eslint . --ext \".js,.ts,\" --fix",
     "prepare": "husky install",
-    "prepublishOnly2": "npm run check",
+    "prepublishOnly": "npm run check",
     "pre-commit": "lint-staged",
-    "pre-push2": "npm run check",
+    "pre-push": "npm run check",
     "preversion": "npm-run-all format:fix lint:fix",
     "postversion": "git push && git push --tags",
     "test": "jest --no-cache --watchAll=false --passWithNoTests",
     "test:all": "CI=true jest --passWithNoTests",
     "test:watch": "jest --watch",
-    "version": "npm run format:fx && git add -A src",
-    "a": "npm run build && node dist/mjs/cli.js vbn --config package.json",
-    "b": "npm run build && node dist/cjs/cli.js vbn",
-    "build:cjs": "tsc -p ./tsconfig.cjs.json",
-    "build:mjs": "tsc -p ./tsconfig.esm.json",
-    "build": "npm run clean && npm run build:cjs && npm run build:mjs"
+    "version": "npm run format:fx && git add -A src"
   },
   "files": [
     "dist"
