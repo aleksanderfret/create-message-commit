@@ -17,17 +17,17 @@ if (configFile) {
   const { version } = configFile;
 
   program
-    .name('gcnames')
-    .alias('gcn')
+    .name('git-names')
+    .alias('gn')
     .version(version, '-v, --version', 'Output current version')
-    .description('Create and validate branch names and commit messages')
+    .description('Validates branch names and creates commit messages')
     .usage('validate-branch-name|vbn, prepare-commit-message|pcm');
 
   program
     .command('validate-branch-name')
     .alias('vbn')
     .usage('-c [config-file]')
-    .description('Validate branch name')
+    .description('Validate branch name to match provided pattern')
     .option('-c, --config [config]', 'Pass path to the config file')
     .action(options => {
       const { config } = options;

@@ -1,37 +1,43 @@
-import { Config, GitConventionalNames } from './config.js';
+import { Config, GitNames } from './config.js';
 import { readJSON } from './readJSON.js';
 import { setConfig } from './setConfig.js';
 
 export type GetConfigFn = (configFileName?: string | null) => Config;
 
 export const getConfig: GetConfigFn = configFileName => {
-  if (!configFileName) {
-    console.info(
-      '\x1b[33m Custom config file was not provided. Using defualt config... \x1b[0m'
-    );
-
-    //TODO check by default in package.json file for config
-
-    return setConfig();
-  }
-
   try {
     const { cwd } = process;
     const root = cwd();
 
-    const parsedConfig = readJSON<GitConventionalNames>(`${root}/package.json`);
+    if (!configFileName) {
+      const parsedConfig = readJSON<GitNames>(`${root}/package.json`);
+
+      const { gitNames } = parsedConfig || {};
+
+      if (!gitNames) {
+        console.info(
+          '\x1b[33m Custom config file was not provided. Using defualt config... \x1b[0m'
+        );
+
+        return setConfig();
+      }
+
+      return setConfig(gitNames);
+    }
+
+    const parsedConfig = readJSON<GitNames>(`${root}/${configFileName}`);
 
     if (!parsedConfig) {
       throw new Error(`Config file: "${configFileName}" was not found.`);
     }
 
-    const { gitConventionalNames } = parsedConfig;
+    const { gitNames } = parsedConfig;
 
-    if (!gitConventionalNames) {
+    if (!gitNames) {
       throw new Error(`Config was not found in "${configFileName}".`);
     }
 
-    return setConfig(gitConventionalNames);
+    return setConfig(gitNames);
   } catch (e) {
     const { message: errorMessage } = (e || {}) as Error;
     console.error(
