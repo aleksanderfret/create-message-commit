@@ -6,9 +6,10 @@ import validateBranchName from './lib/validateBranchName.js';
 export interface PackageJSON {
   version: string;
 }
-const { argv, cwd } = process;
-const root = cwd();
 
+const { argv, cwd } = process;
+
+const root = cwd();
 const configFile = readJSON<PackageJSON>(`${root}/package.json`);
 
 if (configFile) {

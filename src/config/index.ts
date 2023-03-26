@@ -34,7 +34,7 @@ export interface Config<T = ChangeType, K = SkipBranches> {
 }
 
 export interface GitConventionalNames {
-  gitConventionalNames: Config;
+  gitConventionalNames: Partial<Config>;
 }
 
 export const configName = 'createCommitMessage';
@@ -59,18 +59,13 @@ const changeType: ChangeType[] = [
   'style',
   'test',
 ];
-const pattern = `^(${skipBranches.join('|')}){1}$|^((${changeType.join(
-  '|'
-)}){1}${branchSeparator}${ticketPrefix}${ticketSeparator}[0-9]${ticketNumberMinLength},${
-  ticketNumberMaxLength ? '' : ticketNumberMaxLength
-}}!?${branchSeparator}${branchNameChars}{${branchMinLength},${branchMaxLength}})$`;
 
 export const defaultConfig: Config = {
   branchMaxLength,
   branchMinLength,
   branchNameChars,
-  branchNameFeedback: `Branch name should follow the pattern: '${pattern}'`,
-  branchNamePattern: pattern,
+  branchNameFeedback: '',
+  branchNamePattern: '',
   branchSeparator,
   changeType,
   skipBranches: [...skipBranches, '(no branch)'],
