@@ -19,7 +19,7 @@
     }
   },
   "bin": {
-    "gcnames": "./dist/mjs/cli.js"
+    "gn": "./dist/mjs/cli.js"
   },
   "scripts": {
     "build": "npm run clean && npm run build:cjs && npm run build:esm",
