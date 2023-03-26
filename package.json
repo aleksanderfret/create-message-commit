@@ -63,8 +63,10 @@
     "url": "https://github.com/aleksanderfret/git-names/issues"
   },
   "homepage": "https://github.com/aleksanderfret/git-namese#readme",
+  "dependecies": {
+    "@commander-js/extra-typings": "^10.0.3"
+  },
   "devDependencies": {
-    "@commander-js/extra-typings": "^10.0.3",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.9",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
