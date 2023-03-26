@@ -1,1 +1,1 @@
-# create-git-message
+# git-names
