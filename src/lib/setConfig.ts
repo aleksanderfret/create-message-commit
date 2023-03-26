@@ -8,18 +8,26 @@ export const setConfig = (customConfig: Partial<Config> = {}) => {
 
   const change = `(${config.changeType.join('|')}){1}${config.branchSeparator}`;
 
-  const ticket = `${config.ticketPrefix}${config.ticketSeparator}[0-9]{${
-    config.ticketNumberMinLength
-  },${config.ticketNumberMaxLength ? config.ticketNumberMaxLength : ''}}!?${
-    config.branchSeparator
-  }`;
+  let scopeOrTicket = '';
 
-  const name = `${config.branchNameChars}{${config.branchMinLength},${config.branchMaxLength}}`;
+  if (config.scope) {
+    scopeOrTicket = `${config.scope}${config.branchSeparator}`;
+  } else if (config.ticketKey) {
+    scopeOrTicket = `${config.ticketKey}${config.ticketSeparator}[0-9]{${
+      config.ticketNumberMinLength
+    },${config.ticketNumberMaxLength ? config.ticketNumberMaxLength : ''}}!?${
+      config.branchSeparator
+    }`;
+  }
 
-  const pattern = `${branches}|^(${change}${ticket}${name})$`;
+  const description = `${config.branchDescriptionChars}{${config.branchMinLength},${config.branchMaxLength}}`;
+
+  const pattern = `${branches}|^(${change}${scopeOrTicket}${description})$`;
 
   config.branchNamePattern = pattern;
-  config.branchNameFeedback = `Branch name should follow the pattern: '${pattern}'`;
+  config.branchNameFeedback =
+    config.branchNameFeedback ||
+    `Branch name should follow the pattern: '${pattern}'`;
 
   return config;
 };

@@ -5,7 +5,6 @@
     "target": "ES2022",
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "outDir": "./dist/mjs",
-    "declarationDir": "./dist/mjs/types"
+    "outDir": "./dist/esm"
   }
 }

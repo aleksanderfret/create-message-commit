@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "type": "module",
   "description": "Git branch name validator and commit message prefixer",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/mjs/index.js",
-  "types": "dist/mjs/index.d.ts",
+  "main": "dist/cjs/cli.js",
+  "module": "dist/esm/cli.js",
+  "types": "dist/esm/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/mjs/types/index.d.ts",
-        "default": "./dist/mjs/index.mjs"
+        "types": "./dist/esm/types/index.d.ts",
+        "default": "./dist/esm/index.mjs"
       },
       "require": {
         "types": "./dist/cjs/types/index.d.ts",
@@ -19,7 +19,8 @@
     }
   },
   "bin": {
-    "gn": "./dist/mjs/cli.js"
+    "gn": "./dist/esm/cli.js",
+    "gn-cjs": "./dist/cjs/cli.js"
   },
   "scripts": {
     "build": "npm run clean && npm run build:cjs && npm run build:esm",
@@ -94,8 +95,8 @@
       "npm run test"
     ]
   },
-  "gitConventionalNames": {
-    "ticketPrefix": "gn"
+  "gitNames": {
+    "ticketKey": "gn"
   },
   "dependencies": {
     "commander": "^10.0.0"

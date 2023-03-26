@@ -21,24 +21,26 @@ export type SkipBranches =
 export interface Config<T = ChangeType, K = SkipBranches> {
   branchMaxLength: number;
   branchMinLength: number;
-  branchNameChars: string;
+  branchDescriptionChars: string;
   branchNameFeedback: string;
   branchNamePattern: string;
   branchSeparator: string;
   changeType: T[];
+  scope: string;
   skipBranches: K[];
   ticketNumberMaxLength: number;
   ticketNumberMinLength: number;
-  ticketPrefix: string;
+  ticketKey: string;
   ticketSeparator: string;
 }
 
-export interface GitConventionalNames {
-  gitConventionalNames: Partial<Config>;
+export interface GitNames {
+  gitNames: Partial<Config>;
 }
 
 export const configName = 'createCommitMessage';
-const ticketPrefix = 'ticket';
+const ticketKey = 'ticket';
+const scope = '';
 const ticketSeparator = '-';
 const ticketNumberMinLength = 1;
 const ticketNumberMaxLength = 0;
@@ -46,7 +48,7 @@ const branchMinLength = 4;
 const branchMaxLength = 92;
 const skipBranches: SkipBranches[] = ['master', 'main', 'dev', 'test'];
 const branchSeparator = '/';
-const branchNameChars = '[a-z0-9_-]';
+const branchDescriptionChars = '[a-z0-9_-]';
 const changeType: ChangeType[] = [
   'build',
   'fix',
@@ -61,16 +63,17 @@ const changeType: ChangeType[] = [
 ];
 
 export const defaultConfig: Config = {
+  branchDescriptionChars,
   branchMaxLength,
   branchMinLength,
-  branchNameChars,
   branchNameFeedback: '',
   branchNamePattern: '',
   branchSeparator,
   changeType,
+  scope,
   skipBranches: [...skipBranches, '(no branch)'],
+  ticketKey,
   ticketNumberMaxLength,
   ticketNumberMinLength,
-  ticketPrefix,
   ticketSeparator,
 };

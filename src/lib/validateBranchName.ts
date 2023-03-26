@@ -6,7 +6,7 @@ type ValidateBranchNameFn = (
   fileName: Parameters<typeof getConfig>[0]
 ) => Promise<void>;
 
-const validateBranchName: ValidateBranchNameFn = async fileName => {
+export const validateBranchName: ValidateBranchNameFn = async fileName => {
   const config = getConfig(fileName);
 
   if (config) {
