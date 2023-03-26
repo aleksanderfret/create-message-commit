@@ -124,5 +124,14 @@
     ],
     "space-in-parens": ["error", "never"],
     "space-infix-ops": "error"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".js"]
+    },
+    "import/resolver": {
+      "typescript": {},
+      "extensions": [".ts", ".js", ".json"]
+    }
   }
 }
