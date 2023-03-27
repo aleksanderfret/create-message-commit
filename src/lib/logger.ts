@@ -87,7 +87,7 @@ const getLog = (type: Logger) => {
 const matchTypeToColor = (type: Logger): Color => {
   switch (type) {
     case Logger.Info:
-      return Color.Black;
+      return Color.Blue;
     case Logger.Error:
       return Color.Red;
     case Logger.Success:
@@ -135,7 +135,7 @@ const createLogger =
 
     groupEnd();
     resetColor();
-    log('\n', resetColor);
+    log('\n', resetColor());
   };
 
 export const logSuccess = createLogger(Logger.Success);

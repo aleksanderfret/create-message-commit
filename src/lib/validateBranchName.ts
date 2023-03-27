@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
 import { getConfig } from './getConfig.js';
 import { getActiveBranchName } from './getActiveBranchName.js';
+import { logError, logSuccess } from './logger.js';
 
 type ValidateBranchNameFn = (
   fileName: Parameters<typeof getConfig>[0]
@@ -23,30 +23,27 @@ export const validateBranchName: ValidateBranchNameFn = async fileName => {
       const match = branchPattern.test(branchName);
 
       if (match) {
-        console.info(
-          '\x1b[32m%s\x1b[0m',
-          'Result: "passed"\n' +
-            `Branch Name: "${branchName}" \n` +
-            `Pattern:"${branchPattern.toString()}" \n`
+        logSuccess(
+          'Result: "passed"',
+          `Branch Name: "${branchName}`,
+          `Pattern: "${branchPattern.toString()}"`
         );
         process.exitCode = 0;
       } else {
-        console.error(
-          '\x1b[31m%s\x1b[0m',
-          'Result: "failed" \n' +
-            `Error Msg: ${branchNameFeedback} \n` +
-            `Branch Name: "${branchName}" \n` +
-            `Pattern:"${branchPattern.toString()}" \n`
+        logError(
+          'Result: "failed"',
+          `Error Msg: "${branchNameFeedback}"`,
+          `Branch Name: "${branchName}"`,
+          `Pattern: "${branchPattern.toString()}"`
         );
         process.exit(1);
       }
     } catch (error) {
       const { message: errorMessage } = (error || {}) as Error;
 
-      console.error(
-        '\x1b[31m%s\x1b[0m',
-        'Result: "Not able to check active branch" \n' +
-          `Error Msg: ${errorMessage || error} \x1b[0m \n\n`
+      logError(
+        'Result: "Not able to check active branch"',
+        `Error Msg: "${errorMessage || error}"`
       );
     }
   }
