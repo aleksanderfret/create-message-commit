@@ -1,4 +1,5 @@
 import { Config, GitNames } from './config.js';
+import { logError, logInfo } from './logger.js';
 import { readJSON } from './readJSON.js';
 import { setConfig } from './setConfig.js';
 
@@ -15,15 +16,17 @@ export const getConfig: GetConfigFn = configFileName => {
       const { gitNames } = parsedConfig || {};
 
       if (!gitNames) {
-        console.info(
-          '\x1b[33m Custom config file was not provided. Using defualt config... \x1b[0m'
-        );
+        logInfo('Custom config file was not provided. Using defualt config...');
 
         return setConfig();
       }
 
+      logInfo(`Reading config from "${root}/package.json"`);
+
       return setConfig(gitNames);
     }
+
+    logInfo(`Reading config from "${root}/${configFileName}"`);
 
     const parsedConfig = readJSON<GitNames>(`${root}/${configFileName}`);
 
@@ -40,11 +43,7 @@ export const getConfig: GetConfigFn = configFileName => {
     return setConfig(gitNames);
   } catch (e) {
     const { message: errorMessage } = (e || {}) as Error;
-    console.error(
-      '\x1b[31m%s\x1b[0m',
-      'Result: "Config not found" \n' +
-        `Error Msg: ${errorMessage || e} \x1b[0m \n\n`
-    );
+    logError('Result: "Config not found"', `Error Msg: ${errorMessage || e}`);
 
     process.exit(1);
   }
