@@ -1,4 +1,5 @@
-import { readFile, ReadFileParams } from './readFile.js';
+import { readFile } from './readFile.js';
+import { ReadFileParams } from './types.js';
 
 export const readJSON = <T>(path: ReadFileParams[0]): T | null => {
   const file = readFile(path);

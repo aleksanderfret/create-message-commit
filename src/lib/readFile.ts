@@ -1,8 +1,7 @@
 import fs from 'fs';
 
-const { readFileSync } = fs;
+import { ReadFileFn } from './types.js';
 
-export type ReadFileParams = Parameters<typeof readFileSync>;
-export type ReadFileFn = (path: ReadFileParams[0]) => string;
+const { readFileSync } = fs;
 
 export const readFile: ReadFileFn = path => readFileSync(path, 'utf8');

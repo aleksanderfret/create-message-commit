@@ -1,21 +1,17 @@
-enum Logger {
-  Info,
-  Error,
-  Warning,
-  Success,
-  Log,
-}
+import {
+  Color,
+  GetColorFn,
+  GetColorSetFn,
+  GetLogFn,
+  GetLogHeaderFn,
+  LogColorMatcherFn,
+  Logger,
+  LoggerFactoryFn,
+  LoggerHeading,
+  ResetColorFn,
+} from './types.js';
 
-enum Color {
-  White,
-  Black,
-  Red,
-  Yellow,
-  Blue,
-  Green,
-}
-
-const getFrontColor = (color: Color) => {
+const getFrontColor: GetColorFn = color => {
   switch (color) {
     case Color.White:
     default:
@@ -33,7 +29,7 @@ const getFrontColor = (color: Color) => {
   }
 };
 
-const getBackColor = (color: Color) => {
+const getBackColor: GetColorFn = color => {
   switch (color) {
     case Color.Black:
     default:
@@ -50,24 +46,25 @@ const getBackColor = (color: Color) => {
       return '\x1b[42m';
   }
 };
-const resetColor = () => '\x1b[0m';
 
-const getHeader = (type: Logger) => {
+const resetColor: ResetColorFn = () => '\x1b[0m';
+
+const getHeader: GetLogHeaderFn = type => {
   switch (type) {
     case Logger.Info:
-      return 'INFO';
+      return LoggerHeading.Info;
     case Logger.Error:
-      return 'ERROR';
+      return LoggerHeading.Error;
     case Logger.Success:
-      return 'SUCCESS';
+      return LoggerHeading.Success;
     case Logger.Warning:
-      return 'WARNING';
+      return LoggerHeading.Warning;
     default:
-      return 'LOG';
+      return LoggerHeading.Log;
   }
 };
 
-const getLog = (type: Logger) => {
+const getLog: GetLogFn = type => {
   const { error, info, log, warn } = console;
 
   switch (type) {
@@ -84,7 +81,7 @@ const getLog = (type: Logger) => {
   }
 };
 
-const matchTypeToColor = (type: Logger): Color => {
+const matchTypeToColor: LogColorMatcherFn = type => {
   switch (type) {
     case Logger.Info:
       return Color.Blue;
@@ -99,7 +96,7 @@ const matchTypeToColor = (type: Logger): Color => {
   }
 };
 
-const getColorSet = (isHeader: boolean) => (type: Logger) => {
+const getColorSet: GetColorSetFn = (type, isHeader) => {
   const color = matchTypeToColor(type);
   const fg = isHeader ? getFrontColor(Color.Black) : getFrontColor(color);
   const bg = isHeader ? getBackColor(color) : '';
@@ -107,17 +104,14 @@ const getColorSet = (isHeader: boolean) => (type: Logger) => {
   return `${fg}${bg}`;
 };
 
-const getHeaderColor = getColorSet(true);
-const getLogColor = getColorSet(false);
-
-const createLogger =
+const createLogger: LoggerFactoryFn =
   (type: Logger) =>
   (message: string, ...strings: string[]) => {
     const { group, groupEnd } = console;
     const log = getLog(type);
 
-    const headerColor = getHeaderColor(type);
-    const logColor = getLogColor(type);
+    const headerColor = getColorSet(type, true);
+    const logColor = getColorSet(type, false);
 
     log(headerColor, getHeader(type), resetColor());
 

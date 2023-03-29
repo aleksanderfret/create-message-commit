@@ -1,7 +1,4 @@
-type Entries<T> = {
-  [K in keyof T]: [K, T[K]];
-}[keyof T][];
+import { Entries, EntriesFn } from './types.js';
 
-export function entries<T extends {}>(obj: T): Entries<T> {
-  return Object.entries(obj) as Entries<T>;
-}
+export const entries: EntriesFn = <T extends {}>(obj: T) =>
+  Object.entries(obj) as Entries<T>;
