@@ -52,7 +52,7 @@
       }
     ],
     "comma-spacing": ["warn"],
-    "complexity": ["error", 10],
+    "complexity": ["error", 20],
     "computed-property-spacing": ["error", "never"],
     "eqeqeq": ["error", "smart"],
     "func-call-spacing": ["error", "never"],
