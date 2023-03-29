@@ -1,9 +1,7 @@
-import { Config, GitNames } from './config.js';
 import { logError, logInfo } from './logger.js';
 import { readJSON } from './readJSON.js';
 import { setConfig } from './setConfig.js';
-
-export type GetConfigFn = (configFileName?: string | null) => Config;
+import { GetConfigFn, GitNames } from './types.js';
 
 export const getConfig: GetConfigFn = configFileName => {
   try {
@@ -16,7 +14,9 @@ export const getConfig: GetConfigFn = configFileName => {
       const { gitNames } = parsedConfig || {};
 
       if (!gitNames) {
-        logInfo('Custom config file was not provided. Using defualt config...');
+        logInfo(
+          'Custom config file was not provided. The defaultone will be used...'
+        );
 
         return setConfig();
       }

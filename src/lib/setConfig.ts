@@ -1,29 +1,23 @@
-import { Config, defaultConfig } from './config.js';
+import { defaultConfig } from './config.js';
 import { filterConfig } from './filterConfig.js';
+import getScope from './getScope.js';
+import { Config } from './types.js';
 
 export const setConfig = (customConfig: Partial<Config> = {}) => {
-  const config = { ...defaultConfig, ...filterConfig(customConfig) };
+  const filteredConfig = filterConfig(customConfig);
+  const { branchesToSkip = [], ...rest } = filteredConfig;
+  const config = { ...defaultConfig, ...rest };
 
-  const branches = `^(${config.skipBranches.join('|')}){1}$`;
+  const branches = `^(${config.mainBranches.join('|')}){1}$`;
 
   const change = `(${config.changeType.join('|')}){1}${config.branchSeparator}`;
-
-  let scopeOrTicket = '';
-
-  if (config.scope) {
-    scopeOrTicket = `${config.scope}${config.branchSeparator}`;
-  } else if (config.ticketKey) {
-    scopeOrTicket = `${config.ticketKey}${config.ticketSeparator}[0-9]{${
-      config.ticketNumberMinLength
-    },${config.ticketNumberMaxLength ? config.ticketNumberMaxLength : ''}}!?${
-      config.branchSeparator
-    }`;
-  }
-
   const description = `${config.branchDescriptionChars}{${config.branchMinLength},${config.branchMaxLength}}`;
 
-  const pattern = `${branches}|^(${change}${scopeOrTicket}${description})$`;
+  const pattern = `${branches}|^(${change}${getScope(config)}${description})$`;
 
+  config.branchesToSkip = [
+    ...new Set(defaultConfig.branchesToSkip.concat(branchesToSkip)),
+  ];
   config.branchNamePattern = pattern;
   config.branchNameFeedback =
     config.branchNameFeedback ||

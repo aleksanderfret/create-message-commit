@@ -3,19 +3,25 @@
   "version": "0.0.1",
   "type": "module",
   "description": "Git branch name validator and commit message prefixer",
-  "main": "dist/cjs/cli.js",
-  "module": "dist/esm/cli.js",
-  "types": "dist/esm/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/esm/types/index.d.ts",
-        "default": "./dist/esm/index.mjs"
-      },
-      "require": {
-        "types": "./dist/cjs/types/index.d.ts",
-        "default": "./dist/cjs/index.cjs"
-      }
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+        "types": "./dist/types/index.d.ts"
+    },
+    "./dist/cjs/index.js": {
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/cjs/index.js"
+    },
+    "./dist/esm/index.js": {
+      "require": "./dist/esm/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./dist/types/index.d.ts": {
+      "types": "./dist/types/index.d.ts"
     }
   },
   "bin": {
@@ -37,13 +43,14 @@
     "prepare": "husky install",
     "prepublishOnly": "npm run check",
     "pre-commit": "npm run validateBranch && lint-staged",
+    "prepare-commit-msg": "npx ts-node -T src/cli.ts pcm - package.json",
     "pre-push": "npm run check",
     "preversion": "npm-run-all format:fix lint:fix",
     "postversion": "git push && git push --tags",
     "test": "jest --no-cache --watchAll=false --passWithNoTests",
     "test:all": "CI=true jest --passWithNoTests",
     "test:watch": "jest --watch",
-    "validateBranch": "npx ts-node -T src/cli.ts vbn --config package.json",
+    "validateBranch": "npx ts-node -T src/cli.ts vbn -c package.json",
     "version": "npm run format:fx && git add -A src"
   },
   "files": [
@@ -63,10 +70,8 @@
     "url": "https://github.com/aleksanderfret/git-names/issues"
   },
   "homepage": "https://github.com/aleksanderfret/git-namese#readme",
-  "dependecies": {
-    "@commander-js/extra-typings": "^10.0.3"
-  },
   "devDependencies": {
+    "@commander-js/extra-typings": "^10.0.3",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.9",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
