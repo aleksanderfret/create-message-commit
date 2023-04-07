@@ -6,7 +6,7 @@ Conventional commit message creator
 
 ## Description
 
-**git-names** is a command-line tool for validating branch names and creating commit message prefixes base active branch name according to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+**git-names** is a command-line tool for validating branch names and creating commit message prefixes base active branch name according to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). The idea is to create a branch name that contains information as **change type** (feat, chore, fix etc), **scope (ticket)**, to use them to automatically create prefix for commits messages that make it following conventional commits guidelines.
 
 - [git-names](#git-names)
   - [Description](#description)
@@ -90,7 +90,7 @@ The default feedback message that will be displayed to the user when branch does
 
 Type: `string` (optional, default: `^(master|main|dev|test){1}$|^((build|fix|feat|chore|ci|docs|perf|refactor|style|test){1}/key-[0-9]{1,}!?/[a-z0-9-]{4,92})$`)
 
-The pattern is built upon the default options and option provided in the config. The pattern struture allows the program to create commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+The pattern is built upon the default options and options provided in the config. The pattern struture allows the program to create commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ### branchSeparator
 
@@ -138,13 +138,13 @@ The key included in the project's ticket.
 
 Type: `number` (optional, default: `0`)
 
-Maximum length of your ticket number. For `0` the lenght will be unlimited.
+Maximum length of your ticket number. For `0` the lenght will be unlimited. This option won't be used if you don't use [ticket separator](#ticketseparator).
 
 ### ticketNumberMinLength
 
 Type: `number` (optional, default: `1`)
 
-Minimum length of your ticket number.
+Minimum length of your ticket number. This option won't be used if you don't use [ticket separator](#ticketseparator).
 
 ### ticketSeparator
 

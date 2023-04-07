@@ -10,7 +10,7 @@
     ".": {
       "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
-        "types": "./dist/types/index.d.ts"
+      "types": "./dist/types/index.d.ts"
     },
     "./dist/cjs/index.js": {
       "require": "./dist/cjs/index.js",
@@ -51,7 +51,8 @@
     "test:all": "CI=true jest --passWithNoTests",
     "test:watch": "jest --watch",
     "validateBranch": "npx ts-node -T src/cli.ts vbn -c package.json",
-    "version": "npm run format:fx && git add -A src"
+    "version": "npm run format:fx && git add -A src",
+    "init": "npx ts-node -T src/cli.ts init"
   },
   "files": [
     "dist"
@@ -72,6 +73,7 @@
   "homepage": "https://github.com/aleksanderfret/git-namese#readme",
   "devDependencies": {
     "@commander-js/extra-typings": "^10.0.3",
+    "@types/inquirer": "^9.0.3",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.9",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
@@ -101,9 +103,11 @@
     ]
   },
   "gitNames": {
-    "ticketKey": "gn"
+    "ticketKey": "gn",
+    "ticketSeparator": "-"
   },
   "dependencies": {
-    "commander": "^10.0.0"
+    "commander": "^10.0.0",
+    "inquirer": "^9.1.5"
   }
 }

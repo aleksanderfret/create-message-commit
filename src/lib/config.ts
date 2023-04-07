@@ -1,4 +1,4 @@
-import { Config } from './types.js';
+import { Config, ConfigFile } from './types.js';
 
 export const defaultConfig: Config = {
   branchDescriptionChars: '[a-z0-9_-]',
@@ -21,10 +21,11 @@ export const defaultConfig: Config = {
     'test',
   ],
   commitMessagePattern: '.*',
+  configFile: ConfigFile.PackageJSON,
   globalScope: '',
   mainBranches: ['master', 'main', 'dev', 'test'],
   ticketKey: '',
   ticketNumberMaxLength: 0,
   ticketNumberMinLength: 1,
-  ticketSeparator: '-',
+  ticketSeparator: '',
 };
