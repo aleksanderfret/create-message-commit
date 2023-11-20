@@ -105,8 +105,8 @@ const getColorSet: GetColorSetFn = (type, isHeader) => {
 };
 
 const createLogger: LoggerFactoryFn =
-  (type: Logger) =>
-  (message: string, ...strings: string[]) => {
+  type =>
+  (message, ...strings) => {
     const { group, groupEnd } = console;
     const log = getLog(type);
 

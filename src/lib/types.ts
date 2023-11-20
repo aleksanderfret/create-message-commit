@@ -42,6 +42,11 @@ export type MainBranches = 'master' | 'main' | 'dev' | 'develop' | 'test';
 
 export type branchesToSkip = 'no branch' | '(no branch)';
 
+export enum ConfigFile {
+  PackageJSON = 'package.json',
+  GitNames = 'git-names.json',
+}
+
 export interface Config<T = ChangeType, K = branchesToSkip, N = MainBranches> {
   branchMaxLength: number;
   branchMinLength: number;
@@ -51,6 +56,7 @@ export interface Config<T = ChangeType, K = branchesToSkip, N = MainBranches> {
   branchSeparator: string;
   commitMessagePattern: string;
   changeType: T[];
+  configFile: ConfigFile;
   mainBranches: (string | N)[];
   globalScope: string;
   branchesToSkip: (string | K)[];
@@ -94,7 +100,7 @@ export type LogColorMatcherFn = (type: Logger) => Color;
 
 export type GetColorSetFn = (type: Logger, isheader: boolean) => string;
 
-export type LoggerFn = (message: string, ...strings: string[]) => void;
+export type LoggerFn = (message: string, ...strings: any[]) => void;
 
 export type LoggerFactoryFn = (type: Logger) => LoggerFn;
 
@@ -112,7 +118,7 @@ export type ValidateBranchNameFn = (
 ) => Promise<void>;
 
 export type PrepareCommitMessageFn = (
-  configName?: string,
+  configName?: string | null,
   gitMesasgeFile?: string
 ) => Promise<void>;
 

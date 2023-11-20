@@ -2,9 +2,14 @@ import { Command } from 'commander';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { getGitMessageFileName, prepareCommitMessage } from './lib/index.js';
+import {
+  getGitMessageFileName,
+  logInfo,
+  prepareCommitMessage,
+} from './lib/index.js';
 import { readJSON } from './lib/readJSON.js';
 import validateBranchName from './lib/validateBranchName.js';
+import { init } from './lib/init.js';
 
 const { resolve, dirname } = path;
 export interface PackageJSON {
@@ -39,8 +44,8 @@ program
   .description('Validate branch name to match provided pattern')
   .option('-c, --config [config]', 'Pass path to the config file')
   .action((options: ProgramOptions) => {
-    const { config } = options;
-    validateBranchName(typeof config === 'string' ? config : null);
+    const { config: configFile } = options;
+    validateBranchName(typeof configFile === 'string' ? configFile : null);
   });
 
 program
@@ -50,9 +55,20 @@ program
   .description('Validate branch name to match provided pattern')
   .option('-c, --config [config]', 'Pass path to the config file')
   .action((options: ProgramOptions) => {
-    const { config } = options;
+    const { config: configFile } = options;
     const gitMessafeFile = getGitMessageFileName(cliArguments);
-    prepareCommitMessage(config, gitMessafeFile);
+    prepareCommitMessage(
+      typeof configFile === 'string' ? configFile : null,
+      gitMessafeFile
+    );
+  });
+
+program
+  .command('init')
+  .description('Initilalize and setup the validation')
+  .action(async () => {
+    const a = await init();
+    logInfo('result', a);
   });
 
 program.parse(argv);
